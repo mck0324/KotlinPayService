@@ -33,3 +33,9 @@ logging:
 
   pattern:
     console: "%d{HH:mm:ss.SSS}|%highlight(%-5level)|%X{txid:-}|%green(%t)|%logger|%blue(\\(%F:%L\\))|%msg%n"
+  payment:
+    toss:
+      key:
+        client: test_ck_5OWRapdA8dwdd6W4A4vRro1zEqZK
+#        secret: test_sk_mBZ1gQ4YVXWgRgMEyGy93l2KPoqN
+        secret: dGVzdF9za19tQloxZ1E0WVZYV2dSZ01FeUd5OTNsMktQb3FOOg==

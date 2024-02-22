@@ -16,11 +16,13 @@ java {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     implementation ("io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64")
 
+    implementation("au.com.console:kassava:2.1.0")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
 
     implementation("io.micrometer:context-propagation:1.0.3")
