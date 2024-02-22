@@ -16,7 +16,7 @@ class Order (
     var pgOrderId: String? = null,
     var pgKey: String? = null,
     var pgStatus: PgStatus = PgStatus.CREATE,
-    var ppgRetryCount: Int = 0,
+    var pgRetryCount: Int = 0,
 
 ) : BaseEntity() {
     override fun equals(other: Any?): Boolean = kotlinEquals(other, arrayOf(
@@ -37,7 +37,7 @@ class Order (
         Order::pgOrderId,
         Order::pgKey,
         Order::pgStatus,
-        Order::ppgRetryCount,
+        Order::pgRetryCount,
     ), superToString = { super.toString() })
 
 }
