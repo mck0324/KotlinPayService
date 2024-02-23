@@ -16,6 +16,7 @@ spring:
     init:
       mode: always
       schema-locations: classpath:db-init/schema.sql
+      data-locations: classpath:db-init/test-data.sql
 server:
   shutdown: graceful
   port: 8080
@@ -45,7 +46,8 @@ spring:
     activate:
       on-profile: test
   r2dbc:
-    url: r2dbc:pool:h2:mem://127.0.0.1/payment
+    url: r2dbc:pool:h2:mem://localhost/payment
   sql:
     init:
       mode: always
+      data-locations: ""
