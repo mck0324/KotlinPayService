@@ -66,6 +66,11 @@ class OrderService(
     suspend fun getAll(userId: Long): List<Order> {
         return orderRepository.findAllByUserIdOrderByCreatedAtDesc(userId)
     }
+
+    suspend fun delete(orderId: Long) {
+        return orderRepository.deleteById(orderId)
+
+    }
 }
 
 data class ReqCreateOrder(
