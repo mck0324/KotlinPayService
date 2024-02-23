@@ -1,5 +1,6 @@
 package com.example.payment.service
 
+import com.example.payment.exception.NoOrderFound
 import com.example.payment.exception.NoProductFound
 import com.example.payment.model.Order
 import com.example.payment.model.PgStatus
@@ -20,13 +21,16 @@ private val logger = KotlinLogging.logger {  }
 class OrderService(
     @Autowired private val orderRepository: OrderRepository,
     @Autowired private val productService: ProductService,
-    @Autowired private val productRepository: ProductRepository,
+//    @Autowired private val productRepository: ProductRepository,
     @Autowired private val productInOrderRepository: ProductInOrderRepository
 ) {
     @Transactional
     suspend fun create(request: ReqCreateOrder): Order {
         val prodIds = request.products.map { it.prodId }.toSet()
-        val productById = productRepository.findAllById(prodIds).toList().associateBy { it.id }
+//        캐시사용전
+//        val productById = productRepository.findAllById(prodIds).toList().associateBy { it.id }
+//        캐시 사용후
+        val productById = request.products.mapNotNull { productService.get(it.prodId) }.associateBy { it.id  }
         prodIds.filter { !productById.containsKey(it) }.let { remains ->
             if (remains.isNotEmpty())
                 throw NoProductFound("prod ids: $remains")
@@ -53,7 +57,14 @@ class OrderService(
             ))
         }
         return newOrder
+    }
 
+    suspend fun get(orderId: Long): Order {
+        return orderRepository.findById(orderId) ?: throw NoOrderFound("OrderId $orderId")
+    }
+
+    suspend fun getAll(userId: Long): List<Order> {
+        return orderRepository.findAllByUserIdOrderByCreatedAtDesc(userId)
     }
 }
 
